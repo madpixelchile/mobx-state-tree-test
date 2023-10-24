@@ -2,6 +2,7 @@
 import { observer, inject } from 'mobx-react';
 import { useEffect } from 'react';
 import { useManageData } from './hooks/useManageData';
+import { useCounter } from './hooks/useCounter';
 
 export const CounterApp = inject('store')
     (observer(  
@@ -10,19 +11,13 @@ export const CounterApp = inject('store')
 
             const { loadPokemons, loadPokemonByPage } = useManageData();
 
-            const handleIncrement = () => {
-                counter.increment(1);
-            };
-            const handleDecrement = () => {
-                counter.decrement(1);
-            };
-            const handleReset = () => {
-                counter.reset();
-            };
+            const { handleIncrement, handleDecrement, handleReset } = useCounter(counter);
+
             const startgetData = ()=>{
                 // loadPokemons();
                 loadPokemonByPage(counter.count);
             }
+            
             useEffect(()=>{
                 startgetData();
             },[]);
@@ -35,8 +30,8 @@ export const CounterApp = inject('store')
                 <>
                     <h1>Page: { counter.count }</h1>
                     <div style={{marginBottom: '20px'}}>
-                        <button onClick={handleIncrement} >Aumentar</button>
-                        <button onClick={handleDecrement} >Disminuir</button>
+                        <button onClick={()=>handleIncrement(1)} >Aumentar</button>
+                        <button onClick={()=>handleDecrement(1)} >Disminuir</button>
                         <button onClick={handleReset} >Reset</button>
                     </div>
                     <div>
