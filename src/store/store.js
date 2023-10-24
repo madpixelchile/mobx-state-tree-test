@@ -1,6 +1,5 @@
 import { types } from 'mobx-state-tree';
-import { counterModel } from './models/counterModel';
-import { dataModel } from './models/dataModel';
+import { counterModel, dataModel } from './models';
 
 const RootStore = types.model('RootStore', {
     counter: types.optional(counterModel, { count: 0 }),

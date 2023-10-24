@@ -1,8 +1,7 @@
 
 import { observer, inject } from 'mobx-react';
 import { useEffect } from 'react';
-import { useManageData } from './hooks/useManageData';
-import { useCounter } from './hooks/useCounter';
+import { useManageData, useCounter } from './hooks';
 
 export const CounterApp = inject('store')
     (observer(  
