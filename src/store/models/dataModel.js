@@ -25,7 +25,7 @@ export const dataModel = types.model('Data', {
 
     getPokemons: flow(function* (payload) {
         const { loadPokemonsByPage } = useManageData();
-        yield loadPokemonsByPage(self, payload)
+        yield loadPokemonsByPage(payload) //Se puede enviar self como parámetro inicial.
     }),
 
 }))
