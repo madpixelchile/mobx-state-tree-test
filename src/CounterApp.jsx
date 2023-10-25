@@ -1,20 +1,17 @@
 
 import { observer, inject } from 'mobx-react';
 import { useEffect } from 'react';
-import { useManageData, useCounter } from './hooks';
+import { useCounter } from './hooks';
 
 export const CounterApp = inject('store')
     (observer(  
         ({ store }) => {
             const { counter, pokemonData } = store;
 
-            const { loadPokemons, loadPokemonByPage } = useManageData();
-
             const { handleIncrement, handleDecrement, handleReset } = useCounter(counter);
 
             const startgetData = ()=>{
-                // loadPokemons();
-                loadPokemonByPage(counter.count);
+                pokemonData.getPokemons(counter.count);
             }
             
             useEffect(()=>{

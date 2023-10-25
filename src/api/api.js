@@ -1,6 +1,7 @@
 
 
 import axios from 'axios';
+import { flow } from 'mobx-state-tree';
 
 const API_BASE_URL = 'https://pokeapi.co/api/v2/pokemon';
 
@@ -22,9 +23,9 @@ export const getData = async (endpoint) => {
 }
 
 
-export const getDataByPage = async (pageNumber) => {
+export const getDataByPage = flow(function *(pageNumber){
     try {
-        const response = await axios({
+        const response = yield axios({
             url: `${API_BASE_URL}/?limit=10&offset=${pageNumber}`,
         });
         return {
@@ -37,4 +38,4 @@ export const getDataByPage = async (pageNumber) => {
             errorMessage: error
         }
     }
-}
+})

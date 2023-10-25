@@ -1,4 +1,5 @@
-import { types } from "mobx-state-tree";
+import { flow, types } from "mobx-state-tree";
+import { useManageData } from "../../hooks/useManageData";
 
 export const dataModel = types.model('Data', {
 
@@ -8,18 +9,23 @@ export const dataModel = types.model('Data', {
 
 }).actions((self) => ({
 
-    setIsLoading: ()=>{
+    setIsLoading: () => {
         self.isLoading = true;
-    },
-
-    setPokemons: (payload) => {
-        self.pokemons = { ...payload };
-        self.isLoading = false;
     },
 
     setErrors: (payload) => {
         self.errorMessage = payload;
         self.isLoading = false;
-    }
+    },
+
+    setPokemons: ( payload )=>{
+        self.pokemons = { ...payload };
+        self.isLoading = false;
+    },
+
+    getPokemons: flow(function* (payload) {
+        const { loadPokemonsByPage } = useManageData();
+        yield loadPokemonsByPage(self, payload)
+    }),
 
 }))
